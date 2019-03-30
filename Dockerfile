@@ -1,9 +1,15 @@
-FROM python:2.7
+FROM python:alpine
 
-# Add sample application
-ADD application.py /tmp/application.py
+# Create app directory
+WORKDIR /app
 
-EXPOSE 8000
+# Install app dependencies
+COPY src/requirements.txt ./
 
-# Run it
-ENTRYPOINT ["python", "/tmp/application.py"]
+RUN pip install -r requirements.txt
+
+# Bundle app source
+COPY src /app
+
+EXPOSE 8080
+CMD [ "python", "server.py" ]
