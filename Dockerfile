@@ -1,16 +1,13 @@
 FROM python:alpine
 
-# Create app directory
 WORKDIR /app
 
-# Install app dependencies
-COPY src/requirements.txt ./
+COPY app.py requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-# Bundle app source
-COPY src /app
+COPY templates templates/
 
 EXPOSE 8080
 
-CMD [ "python", "server.py" ]
+CMD [ "python", "app.py" ]
